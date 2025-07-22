@@ -1,13 +1,17 @@
 import express from 'express';
 import cors from 'cors';
+import dotenv from 'dotenv';
 import connectDB from './config/database.js';
 import productRoutes from './routes/productRoutes.js';
-// import connectDB from './config/database.js';
+import authRoutes from './routes/authRoutes.js';
+import userRoutes from './routes/userRoutes.js';
+import multer from 'multer';
+
+dotenv.config();
 
 const app = express();
 
 // Connect to database
-// connectDB();
 connectDB();
 
 // Middleware
@@ -16,6 +20,8 @@ app.use(express.json());
 
 // Routes
 app.use('/api/products', productRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
 
 // Error handling middleware
 app.use((error, req, res, next) => {
